@@ -12,19 +12,23 @@
     
     <a href="/comprobantes">Agregar comprobantes</a>
     <a href="/settings">Configuracion</a>
+
+    <h2>Crear Cash flow por período</h2>
     <form action="/cashFlow/crearCashFlow" method='POST'>
         <input type="date" placeholder="Fecha inicial" name='inicioCashFlow' id="inicio">
         <input type="date" placeholder="Fecha final" name='finCashFlow' id="final">
         <input type="submit" value="Ver CashFlow"> 
     </form>
     
-    <ul>    
-        <li>Cuenta1</li>
-        <li>Otro Proveedor</li>
-        <li>Un proveedor mas</li>
-    </ul>
+    <h2>ver por proveedor</h2>
+    <select name="lista" id="lista">
+        <!--Crear lista con los items de mongodb-->
+        <option value="" disabled selected>Que proveedor?</option>
+        <option value="elohim">elohim</option>
+    </select>
 
-    <a href="/logout">Logout</a>
+
+    <a href="/logout">Cerrar Sesión</a>
 
     <script src="js/main.js"></script>
 </body>

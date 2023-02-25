@@ -4,9 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprobantes</title>
+    <title>Configuracion</title>
 </head>
 <body>
     <h2>Aqui se modifican los proveedores</h2>
+
+
+    <input type="text" name="proveedor" id="nuevoProveedor" placeholder="Nombre del proveedor">
+    <input type="submit" value="Agregar!">
+
+    <h2>Lista de proveedores</h2>
+    <select name="lista" id="lista">
+        <!--Crear lista con los items de mongodb-->
+        <option value="" disabled selected>Que proveedor?</option>
+        <option value="elohim">elohim</option>
+    </select>
+    <ul>
+        <li>Cuenta1</li>
+        <li>Otro Proveedor</li>
+        <li>Un proveedor mas</li>
+    </ul>
+
+    <a href="/main">Volver</a>
+
 </body>
 </html>

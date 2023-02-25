@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const settingsController = require("../controllers/settings");
+const comprobantesRoutes = require("../controllers/comprobantes");
 
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 
-router.get("/", ensureAuth, settingsController.getSettings);
+router.get("/", ensureAuth, comprobantesRoutes.getComprobantes);
 
 module.exports = router;
