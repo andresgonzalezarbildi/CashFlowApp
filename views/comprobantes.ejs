@@ -11,6 +11,46 @@
 <body>
     <h2>Aqui se agregan los comprobantes</h2>
 
+<form method="POST" action="/comprobantes">
+    <select name="proveedor" id="proveedor">
+        <option value="" disabled selected>Seleccione un proveedor</option>
+        <% listaProveedores.forEach(function(proveedor) { %>
+            <option value="<%= proveedor._id %>">
+                <%= proveedor.nombreProveedor %>
+            </option>
+            <% }); %>
+    </select>
+    <div>
+        <h3>Pagado?</h3>
+        <input type="radio" id="yes" name="pago" value="si">
+        <label for="yes">Si</label>
+        <input type="radio" id="no" name="pago" value="no">
+        <label for="no">No</label>
+    </div>
+    <div>
+        <label for="factura">Numero de factura</label>
+        <input type="string" name="factura" id="factura" required>
+    </div>
+    <div>
+        <label for="fecha">Fecha</label>
+        <input type="date" name="fecha" id="fecha" required>
+    </div>
+    <div>
+        <label for="monto">Monto</label>
+        <input type="number" name="monto" id="monto" required>
+    </div>
+    <div>
+        <label for="moneda">Moneda</label>
+        <input type="text" name="moneda" id="moneda" required>
+    </div>
+    <div>
+        <label for="descripcion">Descripcion</label>
+        <input type="text" name="descripcion" id="descripcion">
+    </div>
+    <div>
+        <button type="submit">Agregar Comprobante</button>
+    </div>
+</form>
 
     
     <a href="/main">Volver</a>

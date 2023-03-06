@@ -6,5 +6,7 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 
 router.get("/", ensureAuth, comprobantesRoutes.getComprobantes);
+router.post("/", comprobantesRoutes.createComprobante);
+
 
 module.exports = router;

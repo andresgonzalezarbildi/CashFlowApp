@@ -1,12 +1,14 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const SchemaProveedor = new Schema({
-  // elegir proveedor, factura o pago, etc
+const SchemaProveedor = new mongoose.Schema({
   nombreProveedor: String,
   categoria: String,
   saldoInicial: Number,
   moneda: String,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
-
-module.exports = mongoose.model('Proveedor', SchemaProveedor)
+module.exports = mongoose.model("Proveedor", SchemaProveedor);

@@ -21,11 +21,15 @@
     </form>
     
     <h2>ver por proveedor</h2>
-    <select name="lista" id="lista">
-        <!--Crear lista con los items de mongodb-->
-        <option value="" disabled selected>Que proveedor?</option>
-        <option value="elohim">elohim</option>
+    <select name="proveedor" id="proveedor">
+        <option value="" disabled selected>Seleccione un proveedor</option>
+        <% listaProveedores.forEach(function(proveedor) { %>
+            <option value="<%= proveedor._id %>">
+                <%= proveedor.nombreProveedor %>
+            </option>
+            <% }); %>
     </select>
+
 
 
     <a href="/logout">Cerrar Sesión</a>

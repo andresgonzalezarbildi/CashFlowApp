@@ -9,7 +9,7 @@ const logger = require("morgan");
 const connectDB = require("./config/database");
 const indexRoutes = require("./routes/index");
 const mainRoutes = require("./routes/main");
-const settingsRoutes = require("./routes/settings");
+const settingsRouter = require("./routes/settings");
 const comprobantesRoutes = require("./routes/comprobantes");
 
 
@@ -45,7 +45,7 @@ app.use(flash());
 
 app.use("/", indexRoutes);
 app.use("/main", mainRoutes);
-app.use("/settings", settingsRoutes);
+app.use("/settings", settingsRouter);
 app.use("/comprobantes", comprobantesRoutes);
 
 

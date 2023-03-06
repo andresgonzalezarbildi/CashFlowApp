@@ -1,69 +1,44 @@
-const deleteBtn = document.querySelectorAll('.del')
-const todoItem = document.querySelectorAll('span.not')
-const todoComplete = document.querySelectorAll('span.completed')
+const deleteButtons = document.querySelectorAll(".del");
 
-Array.from(deleteBtn).forEach((el)=>{
-    el.addEventListener('click', deleteTodo)
-})
 
-Array.from(todoItem).forEach((el)=>{
-    el.addEventListener('click', markComplete)
-})
+deleteButtons.forEach((button) => {
+  if (!button.hasListener) {
+    button.addEventListener("click", deleteProveedor);
+    button.hasListener = true;
+  }
+});
 
-Array.from(todoComplete).forEach((el)=>{
-    el.addEventListener('click', markIncomplete)
-})
+async function deleteProveedor(e) {
+  const proveedorId = e.target.closest("li").dataset.id;
 
-async function deleteTodo(){
-    const todoId = this.parentNode.dataset.id
-    try{
-        const response = await fetch('todos/deleteTodo', {
-            method: 'delete',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                'todoIdFromJSFile': todoId
-            })
-        })
-        const data = await response.json()
-        console.log(data)
-        location.reload()
-    }catch(err){
-        console.log(err)
+  // Check if proveedorId is defined
+  if (!proveedorId) {
+    console.error("proveedorId is undefined");
+    return;
+  }
+
+  try {
+    const response = await fetch("settings", {
+      method: "delete",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        proveedorIdFromJSFile: proveedorId,
+      }),
+    });
+    // Check if the request is still in progress
+    if (response.status === 204 || response.status === 205) {
+      return;
     }
+    const data = await response.json();
+    console.log(data);
+    location.reload();
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-async function markComplete(){
-    const todoId = this.parentNode.dataset.id
-    try{
-        const response = await fetch('todos/markComplete', {
-            method: 'put',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                'todoIdFromJSFile': todoId
-            })
-        })
-        const data = await response.json()
-        console.log(data)
-        location.reload()
-    }catch(err){
-        console.log(err)
-    }
-}
+document.querySelector('#proveedor').addEventListener('click', displayProveedores)
 
-async function markIncomplete(){
-    const todoId = this.parentNode.dataset.id
-    try{
-        const response = await fetch('todos/markIncomplete', {
-            method: 'put',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                'todoIdFromJSFile': todoId
-            })
-        })
-        const data = await response.json()
-        console.log(data)
-        location.reload()
-    }catch(err){
-        console.log(err)
-    }
+function displayProveedores() {
+  
 }
