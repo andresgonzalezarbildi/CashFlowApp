@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
+    <h2>¿Ya tienes cuenta?</h2>
+    <a href="/login">Entrar!</a>
     <% if (locals.messages.errors) { %>
         <% messages.errors.forEach( el => { %>
             <div class="alert alert-danger"><%= el.msg %></div>

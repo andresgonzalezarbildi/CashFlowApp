@@ -10,26 +10,23 @@
 <body>
     <h1>Bienvenido <%= user.userName %></h1>
     
-    <a href="/comprobantes">Agregar comprobantes</a>
-    <a href="/settings">Configuracion</a>
+    <a href="/comprobantes">Ver comprobantes</a>
+    <section>
+        <h2>Cuentas</h2>
+        <ul>
+            <% listaCuentas.forEach(function(cuenta) { %>
+                <li value="<%= cuenta._id %>">
+                    <%= cuenta.nombre %>    <%= cuenta.moneda %>     <%= cuenta.saldo %>
+                </li>
+                <% }); %>
+                
+        </ul>
+    </section>
+    <section>
+        <a href="cuentas">Modificar cuentas</a>
+        <a href="conceptos">Modificar conceptos</a>
 
-    <h2>Crear Cash flow por período</h2>
-    <form action="/cashFlow/crearCashFlow" method='POST'>
-        <input type="date" placeholder="Fecha inicial" name='inicioCashFlow' id="inicio">
-        <input type="date" placeholder="Fecha final" name='finCashFlow' id="final">
-        <input type="submit" value="Ver CashFlow"> 
-    </form>
-    
-    <h2>ver por proveedor</h2>
-    <select name="proveedor" id="proveedor">
-        <option value="" disabled selected>Seleccione un proveedor</option>
-        <% listaProveedores.forEach(function(proveedor) { %>
-            <option value="<%= proveedor._id %>">
-                <%= proveedor.nombreProveedor %>
-            </option>
-            <% }); %>
-    </select>
-
+    </section>
 
 
     <a href="/logout">Cerrar Sesión</a>

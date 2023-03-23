@@ -3,14 +3,16 @@ const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
+const methodOverride = require("method-override")
 const MongoStore = require("connect-mongo")(session);
 const flash = require("express-flash");
 const logger = require("morgan");
 const connectDB = require("./config/database");
-const indexRoutes = require("./routes/index");
 const mainRoutes = require("./routes/main");
-const settingsRouter = require("./routes/settings");
 const comprobantesRoutes = require("./routes/comprobantes");
+const conceptosRoutes = require("./routes/conceptos");
+const cuentasRoutes = require("./routes/cuentas");
+
 
 
 require("dotenv").config({ path: "./config/.env" });
@@ -43,10 +45,17 @@ app.use(passport.session());
 
 app.use(flash());
 
-app.use("/", indexRoutes);
-app.use("/main", mainRoutes);
-app.use("/settings", settingsRouter);
+app.use("/", mainRoutes);
+app.use("/cuentas", cuentasRoutes);
 app.use("/comprobantes", comprobantesRoutes);
+app.use("/conceptos", conceptosRoutes);
+
+// Handle 404
+app.use((req, res, next) => {
+  res.status(404);
+  // respond with the custom 404 page
+  res.render("404.ejs")
+})
 
 
 app.listen(process.env.PORT, () => {

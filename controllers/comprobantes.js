@@ -1,14 +1,13 @@
 const Comprobante = require("../models/comprobante");
-const Proveedor = require("../models/proveedor");
 
 module.exports = {
   getComprobantes: async (req, res) => {
-    const listaProveedores = await Proveedor.find({ userId: req.user.id });
+    const listaComprobantes = await Comprobante.find({ userId: req.user.id });
     console.log(req.user);
     try {
       res.render("comprobantes.ejs", {
         user: req.user,
-        listaProveedores: listaProveedores,
+        listaComprobantes: listaComprobantes,
       });
     } catch (err) {
       console.log(err);
@@ -16,18 +15,17 @@ module.exports = {
   },
   createComprobante: async (req, res) => {
     try {
-      const proveedor = await Proveedor.findById(req.body.proveedor);
-      const categoria = proveedor.categoria;
+      const comrpobante = await Comprobante.findById(req.body.comprobante);
+      const categoria = comprobante.categoria;
       await Comprobante.create({
-        proveedor: req.body.proveedor,
-        categoria: categoria,
-        pago: req.body.pago.value,
-        factura: req.body.factura,
+        userId: req.user.id,
         fecha: req.body.fecha,
+        tipo: req.body.tipo,
+        cuentaId: req.body.cuenta.id,
+        aCuenta: req.body.aCuenta.id,
+        concepto: req.body.concepto,
+        detalle: req.body.detalle,
         monto: req.body.monto,
-        moneda: req.body.moneda,
-        descripcion: req.body.descripcion,
-        usuario: req.user.id,
       });
       console.log("comprobante agregado");
       res.redirect("/comrpobantes");

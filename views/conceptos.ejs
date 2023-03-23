@@ -5,19 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprobantes</title>
+    <title>Conceptos</title>
 </head>
 
 <body>
-    <h2>Aqui se agregan los comprobantes</h2>
+    <h2>Modificar conceptos</h2>
 
-    <ul>
-        <% listaComprobantes.forEach(function(comprobante) { %>
-            <li value="<%= comprobante._id %>">
-                <%= comprobante.nombreProveedor %>
+   <ul>
+        <% listaConceptos.forEach(function(conceptos) { %>
+            <li value="<%= conceptos._id %>">
+                <%= conceptos.nombreconceptos %>
             </li>
             <% }); %>
     </ul>
+
 
     
     <a href="/">Volver</a>

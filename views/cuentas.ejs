@@ -9,12 +9,13 @@
 </head>
 
 <body>
-    <h2>Aqui se agregan los comprobantes</h2>
-
+    <a href="/cuentas/:id">Agregar Cuenta</a>
+    <h2>Cuentas</h2>
     <ul>
-        <% listaComprobantes.forEach(function(comprobante) { %>
-            <li value="<%= comprobante._id %>">
-                <%= comprobante.nombreProveedor %>
+        <% listaCuentas.forEach(function(cuenta) { %>
+            <li value="<%= cuenta._id %>">
+                <%= cuenta.nombre %>
+                    <%= cuenta.saldo %>
             </li>
             <% }); %>
     </ul>
