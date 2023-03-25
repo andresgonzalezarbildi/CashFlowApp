@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<%- include('partials/header') %>
+
     <% if (locals.messages.errors) { %>
         <% messages.errors.forEach( el => { %>
             <div class="alert alert-danger"><%= el.msg %></div>
@@ -17,10 +10,14 @@
             <div class="alert alert-danger"><%= el.msg %></div>
         <% }) %>    
     <% } %>
+
+    <h1>Ingresa para manejar tus finanzas</h1>
     <form action="/login" method="POST">
         <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit">
+        <input type="password" name="password" placeholder="Contraseña">
+        <input type="submit" value="Ingresar">
     </form>
-</body>
-</html>
+
+    <h2>¿No tenes cuenta aun?</h2>
+    <a href="/signup">Crear una cuenta</a>
+<% // partials/footer.ejs %>

@@ -9,7 +9,6 @@ const SchemaCuenta = new mongoose.Schema({
   nombre: {
     type: String,
     required: true,
-    unique: true,
   },
   moneda: {
     type: String,
@@ -17,9 +16,7 @@ const SchemaCuenta = new mongoose.Schema({
   },
   saldo: {
     type: Number,
-    required: true,
   },
 });
-
 
 module.exports = mongoose.model("Cuenta", SchemaCuenta);

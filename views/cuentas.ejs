@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('partials/header') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprobantes</title>
-</head>
-
-<body>
-    <a href="/cuentas/:id">Agregar Cuenta</a>
+    <a href="/cuentas/agregar/">Agregar Cuenta</a>
     <h2>Cuentas</h2>
     <ul>
-        <% listaCuentas.forEach(function(cuenta) { %>
-            <li value="<%= cuenta._id %>">
+        <% listaCuentas.sort((a,b)=> a.nombre.localeCompare(b.nombre)).forEach(function(cuenta) { %>
+            <li  data-id="<%= cuenta._id %>">
                 <%= cuenta.nombre %>
-                    <%= cuenta.saldo %>
+                <%= cuenta.moneda %>
+                <%= cuenta.saldo ? cuenta.saldo : 0 %>
+                <button class="del">Borrar</button>
             </li>
             <% }); %>
     </ul>
@@ -23,6 +16,4 @@
     
     <a href="/">Volver</a>
 
-</body>
-
-</html>
+<%- include('partials/footer') %>

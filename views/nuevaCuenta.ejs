@@ -1,17 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('partials/header') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CashFlow</title>
-</head>
+    <h1>Cuenta</h1>
 
-<body>
-    <h1>Funciono el id</h1>
-    <a href="/login"> Login</a>
-    <a href="/signup"> Signup</a>
-</body>
+    <%//      Alertar si algo fallo %>
 
-</html>
+        <%// Si la cuenta ya existe %>
+    <% if (typeof nombreRepetido !== 'undefined') { %>
+        <div class="alert alert-danger" role="alert">
+            <%= nombreRepetido %>
+        </div>
+        <% } %>
+
+        <%//  Si no se agrego un nombre %>
+        <% if (typeof faltaNombre !=='undefined' ) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= faltaNombre %>
+            </div>
+            <% } %>
+        <%//  Si no se eligio una moneda    %>
+        <% if (typeof faltaMoneda !=='undefined' ) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= faltaMoneda %>
+            </div>
+            <% } %>
+    <form action="/cuentas/agregar/" method="POST">
+        <input type="text" name="nombre" placeholder="Nombre de la cuenta"
+            value="<%= typeof nombre !== 'undefined' ? nombre : '' %>">
+        <select name="moneda" id="moneda">
+            <% if (typeof moneda === 'undefined') { %>
+                <option value="" selected>Moneda</option>
+                <option value="$"> $ </option>
+                <option value="U$D"> U$D </option>
+            <% } else { %>
+                <option value="">Moneda</option>
+                <option value="$" <%=moneda==='$' ? 'selected' : '' %>>$</option>
+                <option value="U$D" <%=moneda==='U$D' ? 'selected' : '' %>>U$D</option>
+            <% } %>
+        </select>
+
+        </select>
+        <input type="number" name="saldo" placeholder="Saldo Inicial"
+            value="<%= typeof saldo !== 'undefined' ? saldo : '' %>">
+    
+        <input id="agregarCuenta" type="submit" value="Agregar">
+    </form>
+
+    <a href="/cuentas">Volver</a>
+<% // partials/footer.ejs %>

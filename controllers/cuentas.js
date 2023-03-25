@@ -3,7 +3,6 @@ const Cuenta = require("../models/cuenta");
 module.exports = {
   getCuentas: async (req, res) => {
     const listaCuentas = await Cuenta.find({ userId: req.user.id });
-    console.log(req.user);
     try {
       res.render("cuentas.ejs", {
         user: req.user,
@@ -13,31 +12,71 @@ module.exports = {
       console.log(err);
     }
   },
-  getCuenta: async (req, res) => {
-    const cuenta = await Cuenta.find({ _id: req.body.params});
+  getNuevaCuenta: async (req, res) => {
     console.log(req.user);
     try {
       res.render("nuevaCuenta.ejs", {
         user: req.user,
-        cuenta: cuenta,
+        moneda: req.body.moneda,
       });
     } catch (err) {
       console.log(err);
     }
   },
   createCuenta: async (req, res) => {
+    const nombre = req.body.nombre.trim();
+    const cuentaExistente = await Cuenta.findOne({
+      userId: req.user.id,
+      //  Checkea si la cuenta tiene el mismo nombre que otra, sin importar las mayusculas o minusculas
+      nombre: { $regex: new RegExp(`^${nombre}$`, "i") },
+    });
     try {
-      await Cuenta.create({
-        userId: req.user.id,
-        nombre: req.body.nombre,
-        moneda: req.body.moneda,
-        saldo: req.body.saldo,
-      });
-      console.log("cuenta agregada");
-      res.redirect("/cuentas");
+      if (!nombre) {
+        const faltaNombre = "Por favor ingrese un nombre para la cuenta";
+        res.render("nuevaCuenta", {
+          faltaNombre,
+          nombre: req.body.nombre,
+          saldo: req.body.saldo,
+          moneda: req.body.moneda,
+        });
+      } else if (!req.body.moneda) {
+        const faltaMoneda = "Por favor elija una moneda";
+        res.render("nuevaCuenta", {
+          faltaMoneda,
+          nombre: req.body.nombre,
+          saldo: req.body.saldo,
+        });
+      } else if (!cuentaExistente) {
+        await Cuenta.create({
+          userId: req.user.id,
+          nombre: nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase(),
+          moneda: req.body.moneda,
+          saldo: req.body.saldo,
+        });
+        console.log("cuenta agregada");
+        res.redirect("/cuentas");
+      } else {
+        const nombreRepetido = "Esa cuenta ya existe";
+        res.render("nuevaCuenta", {
+          nombreRepetido: nombreRepetido,
+          moneda: req.body.moneda,
+          saldo: req.body.saldo,
+          nombre: req.body.nombre,
+        });
+      }
     } catch (err) {
       console.error(err);
       res.status(500).send("Server error");
+    }
+  },
+  borrarCuenta: async (req, res) => {
+    console.log(req.body.cuentaId);
+    try {
+      await Cuenta.findOneAndDelete({ _id: req.body.cuentaId });
+      console.log("Cuenta borrada");
+      res.json("Borrada");
+    } catch (err) {
+      console.log(err);
     }
   },
 };

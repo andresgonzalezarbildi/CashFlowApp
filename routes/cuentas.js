@@ -6,8 +6,10 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 
 router.get("/", ensureAuth, cuentasController.getCuentas);
-router.get("/:id", ensureAuth, cuentasController.getCuenta)
-router.post("/", cuentasController.createCuenta);
+router.get("/agregar", ensureAuth, cuentasController.getNuevaCuenta);
+router.post("/agregar/", cuentasController.createCuenta);
+router.delete("/borrarCuenta", cuentasController.borrarCuenta);
+
 
 
 module.exports = router;

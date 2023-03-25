@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<%- include('partials/header') %>
+
     <h1>Bienvenido <%= user.userName %></h1>
     
     <a href="/comprobantes">Ver comprobantes</a>
     <section>
         <h2>Cuentas</h2>
         <ul>
-            <% listaCuentas.forEach(function(cuenta) { %>
+            <% listaCuentas.sort((a,b)=> a.nombre.localeCompare(b.nombre)).forEach(function(cuenta) { %>
                 <li value="<%= cuenta._id %>">
-                    <%= cuenta.nombre %>    <%= cuenta.moneda %>     <%= cuenta.saldo %>
+                    <%= cuenta.nombre %>    <%= cuenta.moneda %>     <%= cuenta.saldo ? cuenta.saldo : 0 %>
                 </li>
                 <% }); %>
                 
@@ -30,7 +22,5 @@
 
 
     <a href="/logout">Cerrar Sesión</a>
-
-    <script src="js/main.js"></script>
-</body>
-</html>
+   
+<% // partials/footer.ejs %>
