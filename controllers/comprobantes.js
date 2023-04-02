@@ -51,6 +51,7 @@ module.exports = {
       monto: posONeg,
       }
     try {
+      // Si falta alguno de los campos, recarga la pagina con un mensaje nuevo, y lo pasa en el render
       if (!req.body.cuenta) {
         const faltaCuenta = "Por favor ingrese una cuenta para el comprobante"
         res.render("nuevoComprobante", {
