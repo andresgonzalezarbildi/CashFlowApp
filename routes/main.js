@@ -4,7 +4,7 @@ const mainController = require('../controllers/main')
 const comprobantesController = require("../controllers/comprobantes"); 
 const authController = require("../controllers/auth");
 
-const { ensureAuth, ensureGuest } = require('../middleware/auth')
+const { ensureAuth } = require('../middleware/auth')
 
 router.get('/', ensureAuth, mainController.getMain)
 
@@ -14,8 +14,5 @@ router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
-
-router.get("/comprobantes", ensureAuth, comprobantesController.getComprobantes);
-
 
 module.exports = router

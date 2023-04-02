@@ -7,12 +7,14 @@
             <li  data-id="<%= cuenta._id %>">
                 <%= cuenta.nombre %>
                 <%= cuenta.moneda %>
-                <%= cuenta.saldo ? cuenta.saldo : 0 %>
+                <%= cuenta.saldo %>
                 <button class="del">Borrar</button>
             </li>
             <% }); %>
     </ul>
-
+    <% if (listaCuentas.length===0) {%>
+        <h4>Aún no hay cuentas agregadas</h4>
+    <% }; %>
     
     <a href="/">Volver</a>
 

@@ -6,6 +6,9 @@ const SchemaComprobante = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  moneda: {
+    type: String,
+  },
   fecha: {
     type: Date,
     required: true,
@@ -13,6 +16,9 @@ const SchemaComprobante = new mongoose.Schema({
   tipo: {
     type: String,
     required: true,
+  },
+  nombreDeCuenta: {
+    type: String,
   },
   cuentaId: {
     type: String,

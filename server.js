@@ -14,22 +14,23 @@ const conceptosRoutes = require("./routes/conceptos");
 const cuentasRoutes = require("./routes/cuentas");
 
 
-
+// usar .env
 require("dotenv").config({ path: "./config/.env" });
 
 // Passport config
 require("./config/passport")(passport);
-
+// conectar a mongodb
 connectDB();
-
+  // usar ejs como nuestro view engine
 app.set("view engine", "ejs");
+// express nos permite ustar la carpeta public como acceso a nuestros archivos, como css, js ...
 app.use(express.static("public"));
-// BodyParser
+// Express ahora trae BodyParser, nos permite tomar datos del body, por ejemplo en forms
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+// usamos morgan para loggear lo que se pide en el servidor, solo dev
 app.use(logger("dev"));
-// Sessions
+// Sessions nos permite mantener la sesion iniciada aunque cerremos el navegador
 app.use(
   session({
     secret: "keyboard cat",
@@ -42,9 +43,10 @@ app.use(
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
-
+// flash nos permite mostrar errores a la hora de log in y sign in
 app.use(flash());
 
+// rutas que usaremos
 app.use("/", mainRoutes);
 app.use("/cuentas", cuentasRoutes);
 app.use("/comprobantes", comprobantesRoutes);
@@ -57,7 +59,7 @@ app.use((req, res, next) => {
   res.render("404.ejs")
 })
 
-
+// seleccionar puerto 
 app.listen(process.env.PORT, () => {
   console.log(
     `Server is running on port ${process.env.PORT}, you better catch it!`

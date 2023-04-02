@@ -13,11 +13,15 @@ module.exports = {
     }
   },
   getNuevaCuenta: async (req, res) => {
-    console.log(req.user);
+    const { razon } = req.query;
+    const mensaje = {
+      "no-hay-cuentas": "Por favor, agrega una cuenta primero",
+    };
     try {
       res.render("nuevaCuenta.ejs", {
         user: req.user,
         moneda: req.body.moneda,
+        mensaje: mensaje[razon] || "",
       });
     } catch (err) {
       console.log(err);
@@ -25,6 +29,7 @@ module.exports = {
   },
   createCuenta: async (req, res) => {
     const nombre = req.body.nombre.trim();
+    const saldo = req.body.saldo == "" ? 0 : req.body.saldo;
     const cuentaExistente = await Cuenta.findOne({
       userId: req.user.id,
       //  Checkea si la cuenta tiene el mismo nombre que otra, sin importar las mayusculas o minusculas
@@ -36,7 +41,7 @@ module.exports = {
         res.render("nuevaCuenta", {
           faltaNombre,
           nombre: req.body.nombre,
-          saldo: req.body.saldo,
+          saldo: saldo,
           moneda: req.body.moneda,
         });
       } else if (!req.body.moneda) {
@@ -44,14 +49,15 @@ module.exports = {
         res.render("nuevaCuenta", {
           faltaMoneda,
           nombre: req.body.nombre,
-          saldo: req.body.saldo,
+          saldo: saldo,
         });
       } else if (!cuentaExistente) {
         await Cuenta.create({
           userId: req.user.id,
-          nombre: nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase(),
+          nombre:
+            nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase(),
           moneda: req.body.moneda,
-          saldo: req.body.saldo,
+          saldo: saldo,
         });
         console.log("cuenta agregada");
         res.redirect("/cuentas");
@@ -60,7 +66,7 @@ module.exports = {
         res.render("nuevaCuenta", {
           nombreRepetido: nombreRepetido,
           moneda: req.body.moneda,
-          saldo: req.body.saldo,
+          saldo: saldo,
           nombre: req.body.nombre,
         });
       }
