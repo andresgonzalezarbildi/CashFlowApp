@@ -1,10 +1,15 @@
-h1{
-    color: red;
+a.custom-link, a.nav-link {
+    color: #24435D;
 }
-.completed{
-    text-decoration: line-through;
-    color: gray;
-}
-.not{
-    text-decoration: underline;
-}
+ a[aria-current="page"],  a.active {
+    background-color: #24435D !important;
+ }
+ .logout {
+    margin-left: 25px;
+    margin-top: 4px;
+    border: 1px #24435D solid
+
+ }
+ a.logout {
+    font-size: 0.8em;
+ }

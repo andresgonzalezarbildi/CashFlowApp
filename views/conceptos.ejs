@@ -1,16 +1,21 @@
 <%- include('partials/header') %>
 
-    <h2>Modificar conceptos</h2>
+    <a href="/conceptos/agregar/">Agregar Concepto</a>
+    <h2>Conceptos</h2>
+    <ul>
+        <% listaConceptos.sort((a,b)=> a.nombre.localeCompare(b.nombre)).forEach(function(concepto) { %>
+            <li data-id="<%= concepto._id %>">
+                <%= concepto.nombre %>
+                <%= concepto.tipo %>
+                <button class="btn btn-primary delConcepto"><i class="bi bi-trash"></i></button>
 
-   <ul>
-        <% listaConceptos.forEach(function(conceptos) { %>
-            <li value="<%= conceptos._id %>">
-                <%= conceptos.nombreconceptos %>
             </li>
             <% }); %>
     </ul>
+    <% if (listaConceptos.length===0) {%>
+        <h4>Aún no hay conceptos agregados</h4>
+        <% }; %>
 
+            <a href="/">Volver</a>
 
-    
-    <a href="/">Volver</a>
-<% // partials/footer.ejs %>
+            <%- include('partials/footer') %>

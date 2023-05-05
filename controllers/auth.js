@@ -13,8 +13,10 @@ const User = require('../models/User')
   
   exports.postLogin = (req, res, next) => {
     const validationErrors = []
-    if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
-    if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' })
+    if (!validator.isEmail(req.body.email)) validationErrors.push({
+      msg: "Por favor, ingrese una dirección de Email valida.",
+    });
+    if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'La contraseña no puede estar en blanco.' })
   
     if (validationErrors.length) {
       req.flash('errors', validationErrors)
@@ -58,9 +60,9 @@ const User = require('../models/User')
   
   exports.postSignup = (req, res, next) => {
     const validationErrors = []
-    if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
-    if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' })
-    if (req.body.password !== req.body.confirmPassword) validationErrors.push({ msg: 'Passwords do not match' })
+    if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Por favor, ingrese una dirección de Email valida' })
+    if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Su contraseña debe tener al menos 8 caracteres' })
+    if (req.body.password !== req.body.confirmPassword) validationErrors.push({ msg: 'Las contraseñas no coinciden' })
   
     if (validationErrors.length) {
       req.flash('errors', validationErrors)
@@ -80,7 +82,7 @@ const User = require('../models/User')
     ]}, (err, existingUser) => {
       if (err) { return next(err) }
       if (existingUser) {
-        req.flash('errors', { msg: 'Account with that email address or username already exists.' })
+        req.flash('errors', { msg: 'Ya existe una cuenta con ese Email o ese nombre de usuario' })
         return res.redirect('../signup')
       }
       user.save((err) => {

@@ -15,13 +15,13 @@
             }) %>
             <li data-id="<%= comprobante._id %>">
                 <%= nombreCuenta %>
-                <%= comprobante.concepto %>
+                <%= comprobante.conceptoNombre %>
                 <%= comprobante.detalle %>
                 <%= monedaCuenta %>
                 <%= comprobante.moneda %>
                 <%= comprobante.monto%>
+                            <button class="btn btn-primary rounded-circle p-2 lh-1 delComprobante"><i class="bi bi-trash"></i></button>
 
-                            <button class="delComprobante">Borrar</button>
             </li>
             <% }); %>
             <% if (listaComprobantes.length === 0) {%>

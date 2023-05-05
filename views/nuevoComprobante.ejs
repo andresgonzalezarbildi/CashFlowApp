@@ -23,7 +23,13 @@
         </select>
         <br>
         <label for="concepto">Concepto:</label>
-        <input type="text" name="concepto" id="concepto" required>
+        <select name="concepto" id="concepto" required>
+            <% listaConceptos.forEach(function(concepto) { if (!tipo && concepto.tipo === tipo) { %>
+                <option value="<%= concepto._id %>">
+                    <%= concepto.nombre %>
+                </option>
+                <% } }); %>
+        </select>
         <br>
         <label for="detalle">Detalle:</label>
         <input type="text" name="detalle" id="detalle" required>
@@ -34,7 +40,24 @@
         <button type="submit">Crear Comprobante</button>
     </form>
 
-
-
     <a href="/comprobantes">Volver</a>
+    <script>
+        const listaConceptos = JSON.parse('<%- JSON.stringify(listaConceptos) %>');
+        const tipoSelect = document.getElementById("tipo");
+        const conceptoSelect = document.getElementById("concepto");
+
+        tipoSelect.addEventListener("change", () => {
+            const filteredConceptos = listaConceptos.filter(
+                concepto => concepto.tipo === tipoSelect.value
+            );
+            conceptoSelect.innerHTML = "";
+            filteredConceptos.forEach(concepto => {
+                const option = document.createElement("option");
+                option.value = concepto._id;
+                option.text = concepto.nombre;
+                conceptoSelect.add(option);
+            });
+        });
+    </script>
+
 <% // partials/footer.ejs %>

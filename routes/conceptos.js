@@ -6,7 +6,9 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 
 router.get("/", ensureAuth, conceptosController.getConceptos);
-router.post("/", conceptosController.createConcepto);
+router.get("/agregar", ensureAuth, conceptosController.getNuevoConcepto);
+router.post("/agregar/", conceptosController.createConcepto);
+router.delete("/borrarConcepto", conceptosController.borrarConcepto);
 
 
 module.exports = router;

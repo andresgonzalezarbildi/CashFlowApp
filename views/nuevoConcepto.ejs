@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+    <h1>Concepto</h1>
+
+    <%//      Alertar si algo fallo %>
+        <%// Si el concepto ya existe %>
+    <% if (typeof conceptoRepetido !== 'undefined') { %>
+        <div class="alert alert-danger" role="alert">
+            <%= conceptoRepetido %>
+        </div>
+        <% } %>
+
+        <%//  Si no se agrego un nombre %>
+        <% if (typeof faltaNombre !=='undefined' ) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= faltaNombre %>
+            </div>
+            <% } %>
+        <%//  Si no se eligio el tipo    %>
+        <% if (typeof faltaTipo !=='undefined' ) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= faltaTipo %>
+            </div>
+            <% } %>
+    <form action="/conceptos/agregar/" method="POST">
+        <input type="text" name="nombre" placeholder="Nombre del concepto"
+            value="<%= typeof nombre !== 'undefined' ? nombre : '' %>">
+        <select name="tipo" id="tipo">
+            <% if (typeof tipo === 'undefined') { %>
+                <option value="" disabled selected>Gasto / Ingreso</option>
+                <option value="gasto"> Gasto </option>
+                <option value="ingreso"> Ingreso </option>
+            <% } %>
+
+        </select>
+        
+        <input id="agregarConcepto" type="submit" value="Agregar">
+    </form>
+
+    <a href="/conceptos">Volver</a>
+<% // partials/footer.ejs %>

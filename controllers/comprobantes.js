@@ -1,11 +1,12 @@
 const Comprobante = require("../models/comprobante");
 const Cuenta = require("../models/cuenta");
+const Concepto = require("../models/concepto");
+const cuenta = require("../models/cuenta");
 
 module.exports = {
   getComprobantes: async (req, res) => {
     const listaCuentas = await Cuenta.find({ userId: req.user.id });
     if (listaCuentas.length == 0) {
-      const sinCuentas = "Aún no tienes cuentas agregadas";
       res.redirect(302, "/cuentas/agregar?razon=no-hay-cuentas");
     } else {
       const listaComprobantes = await Comprobante.find({ userId: req.user.id });
@@ -22,12 +23,17 @@ module.exports = {
   },
   getNuevoComprobante: async (req, res) => {
     const listaCuentas = await Cuenta.find({ userId: req.user.id });
-
+    let listaConceptos = await Concepto.find({userId: req.user.id})
+    if (req.body.tipo) {
+      listaConceptos = listaConceptos.filter(concepto => concepto.tipo === req.body.tipo)
+    }
     try {
       res.render("nuevoComprobante.ejs", {
         user: req.user,
         listaCuentas: listaCuentas,
+        listaConceptos: listaConceptos,
         moneda: req.body.moneda,
+        tipo: req.body.tipo
       });
     } catch (err) {
       console.log(err);
@@ -35,7 +41,7 @@ module.exports = {
   },
   createComprobante: async (req, res) => {
     const cuentaComprobante = await Cuenta.find({ id: req.body.cuenta });
-    const detalle = req.body.detalle.trim()
+    const detalle = req.body.detalle.trim();
     // convierte en gasto o ingreso el monto dado
     let posONeg = req.body.monto;
     if (req.body.tipo === "gasto") {
@@ -49,39 +55,41 @@ module.exports = {
       concepto: req.body.concepto,
       detalle: detalle,
       monto: posONeg,
-      }
+    };
     try {
       // Si falta alguno de los campos, recarga la pagina con un mensaje nuevo, y lo pasa en el render
       if (!req.body.cuenta) {
-        const faltaCuenta = "Por favor ingrese una cuenta para el comprobante"
+        const faltaCuenta = "Por favor ingrese una cuenta para el comprobante";
         res.render("nuevoComprobante", {
           faltaCuenta,
-          ...data
+          ...data,
         });
       } else if (!req.body.tipo) {
-        const faltaTipo = "Por favor seleccione el tipo de comprobante"
+        const faltaTipo = "Por favor seleccione el tipo de comprobante";
         res.render("nuevoComprobante", {
           faltaTipo,
           ...data,
         });
       } else if (!req.body.concepto) {
-        const faltaConcepto = "Por favor seleccione el concepto al que corresponde el comprobante"
+        const faltaConcepto =
+          "Por favor seleccione el concepto al que corresponde el comprobante";
         res.render("nuevoComprobante", {
           faltaConcepto,
           ...data,
-        })
+        });
       } else if (!req.body.detalle) {
-        const faltaDetalle = "Por favor agregue la descripcion que corresponde del comprobante"
+        const faltaDetalle =
+          "Por favor agregue la descripcion que corresponde del comprobante";
         res.render("nuevoComprobante", {
           faltaDetalle,
           ...data,
-        })
+        });
       } else if (!req.body.monto) {
-        const faltaMonto = "Por favor agregue el monto del comprobante"
+        const faltaMonto = "Por favor agregue el monto del comprobante";
         res.render("nuevoComprobante", {
           faltaMonto,
           ...data,
-        })
+        });
       } else {
         await Comprobante.create(data);
         await Cuenta.findOneAndUpdate(
