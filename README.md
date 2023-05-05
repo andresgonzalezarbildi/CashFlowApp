@@ -1,44 +1,23 @@
-# Introduction
+# CashFlow personal finance app
+This is a project in which you can improve many of the ways in which I worked in my previous job, optimizing tasks and improving the pace of work.
 
-A Simple ToDo App is built using the MVC Architecture, we have also implemented "authorization" so folx can sign up, customize & personalize the app 
-
----
-
-> Be sure to add that lovely star 😀 and fork it for your own copy
-
----
-
-# Objectives
-
-- It's a beginner level app created to understand how MVC concept and logins are added
-
----
-
-# Who is this for? 
-
-- It's for beginners & intermediates with little more experience, to help understand the various aspects of building a node app with some complex features
-
----
-
-# Packages/Dependencies used 
-
-bcrypt, connect-mongo, dotenv, ejs, express, express-flash, express-session, mongodb, mongoose, morgan, nodemon, passport, passport-local, validator
-
----
-
-# Install all the dependencies or node packages used for development via Terminal
-
-`npm install` 
-
----
-
-# Things to add
-
-- Create a `.env` file and add the following as `key: value` 
-  - PORT: 2121 (can be any port example: 3000) 
-  - DB_STRING: `your database URI` 
- ---
- 
- Have fun testing and improving it! 😎
+<h1 align="center"><a href=""> Ca$hFlow app </a></h1>
+<p align="center">
+  <img src="" alt="Web's gif" />
+</p>
 
 
+## How It's Made:
+
+**Tech used:** HTML, CSS, JavaScript, Express, Node, MongoDb, Bootstrap.
+
+This is a Full-stack, responsive web app, made with Express, Node and MongoDb, with BootStrap to improve on the looks and speed of the css. Taylor fit to my needs and the needs of the work i needed to do.
+
+## Optimizations
+
+There is a lot of things to improve, or things i am currently working on, like new features, specially when working with the data and exporting it to excel.
+I would also like, in the near future, to use react instead of bootstrap just to make it look more unique
+
+## Lessons Learned:
+
+Learned a lot about Full stack apps, how does a css framework works, how to export data to a spread sheet, overall how to make a functional app to fulfill the needs that i had.
