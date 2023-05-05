@@ -3,7 +3,7 @@ This is a project in which you can improve many of the ways in which I worked in
 
 <h1 align="center"><a href=""> Ca$hFlow app </a></h1>
 <p align="center">
-  <img src="" alt="Web's gif" />
+  <img src="https://raw.githubusercontent.com/andresgonzalezarbildi/CashFlowApp/main/CashFlow%20image.png" alt="Web's gif" />
 </p>
 
 
