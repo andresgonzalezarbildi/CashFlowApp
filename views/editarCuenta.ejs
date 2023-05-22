@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <h1 class="my-4 text-center">Editar cuenta</h1>
+
+                <% // Si la cuenta ya existe %>
+                    <% if (typeof nombreRepetido !=='undefined' ) { %>
+                        <div class="alert alert-danger" role="alert">
+                            <%= nombreRepetido %>
+                        </div>
+                        <% } %>
+
+                            <% // Si no se agrego un nombre %>
+                                <% if (typeof faltaNombre !=='undefined' ) { %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <%= faltaNombre %>
+                                    </div>
+                                    <% } %>
+
+                                        <% // Si no se eligio una moneda %>
+                                            <% if (typeof faltaMoneda !=='undefined' ) { %>
+                                                <div class="alert alert-danger" role="alert">
+                                                    <%= faltaMoneda %>
+                                                </div>
+                                                <% } %>
+
+                                                    <div class="container">
+                                                        <form action="/cuentas/editar/<%= cuenta._id %>" method="POST">
+                                                            <div class="mb-3">
+                                                                <input type="text" name="nombre" class="form-control"
+                                                                    placeholder="Nombre de la cuenta"
+                                                                    value="<%= nombreCuenta || '' %>">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <select name="moneda" id="moneda" class="form-select">
+                                                                    <option value="">Moneda</option>
+                                                                    <option value="$" <%=monedaCuenta==='$' ? 'selected'
+                                                                        : '' %>>$</option>
+                                                                    <option value="U$D" <%=monedaCuenta==='U$D'
+                                                                        ? 'selected' : '' %>>U$D</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <input type="number" name="saldo" class="form-control"
+                                                                    placeholder="Saldo Inicial"
+                                                                    value="<%= saldoCuenta || '' %>">
+                                                            </div>
+
+                                                            <div class="d-grid gap-2">
+                                                                <button id="editarCuenta" type="submit"
+                                                                    class="btn btn-primary btn-lg mx-auto">Confirmar</button>
+                                                                <a href="/"
+                                                                    class="mt-2 btn btn-secondary btn-lg mx-auto">Volver</a>
+                                                            </div>
+                                                        </form>
+
+                                                        <button
+                                                            class="btn btn-danger rounded-circle p-2 lh-1 borrarCuenta"
+                                                            style="float: right;" data-cuenta-id="<%= cuenta._id %>">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+
+                                                    </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>   

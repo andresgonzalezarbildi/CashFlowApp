@@ -10,11 +10,24 @@ module.exports = {
       res.redirect(302, "/cuentas/agregar?razon=no-hay-cuentas");
     } else {
       const listaComprobantes = await Comprobante.find({ userId: req.user.id });
+      const conceptoIds = listaComprobantes.map(
+        (comprobante) => comprobante.concepto
+      );
+      const conceptoNames = await Concepto.find({ _id: { $in: conceptoIds } })
+        .select("name")
+        .lean();
+
+      const conceptoMap = {};
+      conceptoNames.forEach((concepto) => {
+        conceptoMap[concepto._id.toString()] = concepto.name;
+      });
+
       try {
         res.render("comprobantes.ejs", {
           user: req.user,
           listaComprobantes: listaComprobantes,
           listaCuentas: listaCuentas,
+          conceptoMap: conceptoMap,
         });
       } catch (err) {
         console.log(err);

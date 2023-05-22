@@ -1,4 +1,5 @@
 const Cuenta = require("../models/cuenta");
+const { ObjectId } = require("mongoose").Types;
 
 module.exports = {
   getCuentas: async (req, res) => {
@@ -60,7 +61,7 @@ module.exports = {
           saldo: saldo,
         });
         console.log("cuenta agregada");
-        res.redirect("/cuentas");
+        res.redirect("/");
       } else {
         const nombreRepetido = "Esa cuenta ya existe";
         res.render("nuevaCuenta", {
@@ -76,11 +77,55 @@ module.exports = {
     }
   },
   borrarCuenta: async (req, res) => {
-    console.log(req.body.cuentaId);
     try {
+      const cuentaABorrar = await Cuenta.findById(
+        req.body.cuentaId
+      );
+      await Cuenta.findOneAndUpdate(
+        { _id: cuentaABorrar.cuentaId },
+        { $inc: { saldo: -cuentaABorrar.monto } }
+      );
+
       await Cuenta.findOneAndDelete({ _id: req.body.cuentaId });
       console.log("Cuenta borrada");
       res.json("Borrada");
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  getEditarCuenta: async (req, res) => {
+    const cuentaId = req.query.cuentaId;
+    try {
+      const cuenta = await Cuenta.findOne({ _id: cuentaId });
+      console.log(cuenta);
+      res.render("editarCuenta.ejs", {
+        user: req.user,
+        cuenta: cuenta,
+        nombreCuenta: cuenta.nombre,
+        monedaCuenta: cuenta.moneda,
+        saldoCuenta: cuenta.saldo,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  editarCuenta: async (req, res) => {
+    const cuentaId = req.params.cuentaId;
+    const { nombre, moneda, saldo } = req.body;
+    try {
+      const cuenta = await Cuenta.findOneAndUpdate(
+        { _id: cuentaId },
+        {
+          nombre: nombre,
+          moneda: moneda,
+          saldo: saldo,
+        },
+        { new: true }
+      );
+      console.log("Cuenta actualizada:", cuenta);
+      res.redirect("/");
     } catch (err) {
       console.log(err);
     }

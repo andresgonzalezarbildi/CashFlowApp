@@ -1,35 +1,93 @@
 <%- include('partials/header') %>
 
     <a href="/comprobantes/agregar/">Agregar comprobante</a>
-    <h2>Comprobantes</h2>
-    <ul>
-        
-        <% listaComprobantes.sort((a,b)=> a.fecha - b.fecha).forEach(function(comprobante) {
-            let nombreCuenta = ""
-            let monedaCuenta = ""
-            listaCuentas.forEach(cuenta => {
-                if(cuenta._id = comprobante.cuentaId) {
-                    nombreCuenta = cuenta.nombre
-                    monedaCuenta = cuenta.moneda
-                }
-            }) %>
-            <li data-id="<%= comprobante._id %>">
-                <%= nombreCuenta %>
-                <%= comprobante.conceptoNombre %>
-                <%= comprobante.detalle %>
-                <%= monedaCuenta %>
-                <%= comprobante.moneda %>
-                <%= comprobante.monto%>
-                            <button class="btn btn-primary rounded-circle p-2 lh-1 delComprobante"><i class="bi bi-trash"></i></button>
+    <h2 class="display-4">Comprobantes</h2>
 
-            </li>
-            <% }); %>
-            <% if (listaComprobantes.length === 0) {%>
-            <h4>Aún no hay comprobantes ingresados</h4>
-            <% }; %>
-    </ul>
-
+    <div class="container mt-10">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <table class="table table-hover">
+                    <!-- table header content -->
+                    <thead>
+                        <tr class="border">
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Cuenta</th>
+                            <th scope="col">Concepto</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Moneda</th>
+                            <th scope="col">Monto</th>
+                            <th scope="col">Acciones</th> <!-- Added column for delete button -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% listaComprobantes.sort((a, b)=> a.fecha - b.fecha).forEach(function(comprobante) { %>
+                            <tr value="<%= comprobante._id %>">
+                                <!-- table row content -->
+                                <td>
+                                    <%= comprobante.fecha.toLocaleDateString('en-GB') %>
+                                </td>
+                                <td>
+                                    <%= comprobante.tipo %>
+                                </td>
+                                <td>
+                                    <%= comprobante.nombreDeCuenta %>
+                                </td>
+                                <td>
+                                    <%= conceptoMap[comprobante.concepto.toString()] %>
+                                </td>
+                                <td>
+                                    <%= comprobante.detalle %>
+                                </td>
+                                <td>
+                                    <%= comprobante.moneda %>
+                                </td>
+                                <td>
+                                    <%= comprobante.monto %>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary rounded-circle p-2 lh-1 delComprobante"
+                                        onclick="deleteComprobante('<%= comprobante._id %>')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <% }); %>
+                                <% if (listaComprobantes.length===0) { %>
+                                    <tr>
+                                        <td colspan="8">
+                                            <h4>Aún no hay comprobantes ingresados</h4>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <a href="/">Volver</a>
 
     <%- include('partials/footer') %>
+
+        <script>
+            function deleteComprobante(comprobanteId) {
+                    fetch('/comprobantes/borrarComprobante', {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ comprobanteId })
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                location.reload();
+                            } else {
+                                throw new Error('Something went wrong');
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                }
+        </script>

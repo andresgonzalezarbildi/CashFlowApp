@@ -1,49 +1,75 @@
 <%- include('partials/header') %>
 
-    <h1>Cuenta</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <h1 class="my-4 text-center">Nueva cuenta</h1>
 
-    <%//      Alertar si algo fallo %>
-    <div><%= mensaje %></div>
-        <%// Si la cuenta ya existe %>
-    <% if (typeof nombreRepetido !== 'undefined') { %>
-        <div class="alert alert-danger" role="alert">
-            <%= nombreRepetido %>
+                <% // Alertar si algo fallo %>
+                    <div class="my-3 text-center">
+                        <%= mensaje %>
+                    </div>
+
+                    <% // Si la cuenta ya existe %>
+                        <% if (typeof nombreRepetido !=='undefined' ) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= nombreRepetido %>
+                            </div>
+                            <% } %>
+
+                                <% // Si no se agrego un nombre %>
+                                    <% if (typeof faltaNombre !=='undefined' ) { %>
+                                        <div class="alert alert-danger" role="alert">
+                                            <%= faltaNombre %>
+                                        </div>
+                                        <% } %>
+
+                                            <% // Si no se eligio una moneda %>
+                                                <% if (typeof faltaMoneda !=='undefined' ) { %>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <%= faltaMoneda %>
+                                                    </div>
+                                                    <% } %>
+
+                                                        <form action="/cuentas/agregar/" method="POST">
+                                                            <div class="mb-3">
+                                                                <input type="text" name="nombre" class="form-control"
+                                                                    placeholder="Nombre de la cuenta"
+                                                                    value="<%= typeof nombre !== 'undefined' ? nombre : '' %>">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <select name="moneda" id="moneda" class="form-select">
+                                                                    <% if (typeof moneda==='undefined' ) { %>
+                                                                        <option value="" selected>Moneda</option>
+                                                                        <option value="$"> $ </option>
+                                                                        <option value="U$D"> U$D </option>
+                                                                        <% } else { %>
+                                                                            <option value="">Moneda</option>
+                                                                            <option value="$" <%=moneda==='$'
+                                                                                ? 'selected' : '' %>>$</option>
+                                                                            <option value="U$D" <%=moneda==='U$D'
+                                                                                ? 'selected' : '' %>>U$D</option>
+                                                                            <% } %>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <input type="number" name="saldoInicial" class="form-control"
+                                                                    placeholder="Saldo Inicial"
+                                                                    value="<%= typeof saldoInicial !== 'undefined' ? saldoInicial : '' %>">
+                                                            </div>
+
+                                                            <div class="d-grid gap-2">
+                                                                <button id="agregarCuenta" type="submit" class="btn btn-primary btn-lg mx-auto">Agregar</button>
+                                                                <a href="/" class="mt-2 btn btn-secondary btn-lg mx-auto">Volver</a>
+                                                            </div>
+
+
+                                                        </form>
+
+            </div>
         </div>
-        <% } %>
+    </div>
 
-        <%//  Si no se agrego un nombre %>
-        <% if (typeof faltaNombre !=='undefined' ) { %>
-            <div class="alert alert-danger" role="alert">
-                <%= faltaNombre %>
-            </div>
-            <% } %>
-        <%//  Si no se eligio una moneda    %>
-        <% if (typeof faltaMoneda !=='undefined' ) { %>
-            <div class="alert alert-danger" role="alert">
-                <%= faltaMoneda %>
-            </div>
-            <% } %>
-    <form action="/cuentas/agregar/" method="POST">
-        <input type="text" name="nombre" placeholder="Nombre de la cuenta"
-            value="<%= typeof nombre !== 'undefined' ? nombre : '' %>">
-        <select name="moneda" id="moneda">
-            <% if (typeof moneda === 'undefined') { %>
-                <option value="" selected>Moneda</option>
-                <option value="$"> $ </option>
-                <option value="U$D"> U$D </option>
-            <% } else { %>
-                <option value="">Moneda</option>
-                <option value="$" <%=moneda==='$' ? 'selected' : '' %>>$</option>
-                <option value="U$D" <%=moneda==='U$D' ? 'selected' : '' %>>U$D</option>
-            <% } %>
-        </select>
-
-        </select>
-        <input type="number" name="saldo" placeholder="Saldo Inicial"
-            value="<%= typeof saldo !== 'undefined' ? saldo : '' %>">
-    
-        <input id="agregarCuenta" type="submit" value="Agregar">
-    </form>
-
-    <a href="/cuentas">Volver</a>
-<% // partials/footer.ejs %>
+    <% // partials/footer.ejs %>

@@ -14,6 +14,9 @@ const SchemaCuenta = new mongoose.Schema({
     type: String,
     required: true,
   },
+  saldoInicial: {
+    type: Number,
+  },
   saldo: {
     type: Number,
   },

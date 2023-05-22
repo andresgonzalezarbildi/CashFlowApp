@@ -1,7 +1,26 @@
+/* Base */
+a {
+   text-decoration: none;
+   color: inherit;
+}
+
+a:hover {
+   text-decoration: none;
+   color: inherit;
+}
+
+a:focus {
+   outline: none;
+}
+
+
+
+/* Nav bar */
+
 a.custom-link, a.nav-link {
     color: #24435D;
 }
- a[aria-current="page"],  a.active {
+ a[aria-current="page"],  a.active, a.botones {
     background-color: #24435D !important;
  }
  .logout {
@@ -12,4 +31,21 @@ a.custom-link, a.nav-link {
  }
  a.logout {
     font-size: 0.8em;
+ }
+
+
+ /* main page */
+ .account-name {
+   color: #24435D;
+ }
+
+ .align-items-center {
+    align-items: center;
+ }
+ .table-responsive {
+    overflow-x: auto;
+ }
+
+ .mt-10 {
+   margin-top: 5rem;
  }
