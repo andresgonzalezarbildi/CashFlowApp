@@ -49,3 +49,19 @@ a.custom-link, a.nav-link {
  .mt-10 {
    margin-top: 5rem;
  }
+
+         /* COMPROBANTES */
+
+.concepto-nombre {
+    margin-left: 20px;
+}
+.custom-width {
+   width: 40%;
+}
+.gasto {
+   background-color: #d37373;
+}
+
+.ingreso {
+   background-color: #6edc6e;
+}

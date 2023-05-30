@@ -1,13 +1,14 @@
 <%- include('partials/header') %>
 
-    <a href="/comprobantes/agregar/">Agregar comprobante</a>
-    <h2 class="display-4">Comprobantes</h2>
+    <div class="text-center col-md-4 mx-auto my-4">
+        <a href="/comprobantes/agregar/" class="btn btn-primary botones mt-5">Agregar comprobante</a>
+        <h2 class="display-4 mt-10">Comprobantes</h2>
+    </div>
 
-    <div class="container mt-10">
+    <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <table class="table table-hover">
-                    <!-- table header content -->
                     <thead>
                         <tr class="border">
                             <th scope="col">Fecha</th>
@@ -17,13 +18,12 @@
                             <th scope="col">Descripcion</th>
                             <th scope="col">Moneda</th>
                             <th scope="col">Monto</th>
-                            <th scope="col">Acciones</th> <!-- Added column for delete button -->
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <% listaComprobantes.sort((a, b)=> a.fecha - b.fecha).forEach(function(comprobante) { %>
                             <tr value="<%= comprobante._id %>">
-                                <!-- table row content -->
                                 <td>
                                     <%= comprobante.fecha.toLocaleDateString('en-GB') %>
                                 </td>
@@ -66,11 +66,12 @@
         </div>
     </div>
 
-    <a href="/">Volver</a>
+    <div class="text-center col-md-4 mx-auto my-4">
+        <a class="btn btn-primary botones mt-5" href="/">Volver</a>
+    </div>
 
-    <%- include('partials/footer') %>
-
-        <script>
+    
+    <script>
             function deleteComprobante(comprobanteId) {
                     fetch('/comprobantes/borrarComprobante', {
                         method: 'DELETE',
@@ -89,5 +90,8 @@
                         .catch(error => {
                             console.log(error);
                         });
-                }
-        </script>
+                    }
+            </script>
+
+        
+                    <%- include('partials/footer') %>

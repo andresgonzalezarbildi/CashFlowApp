@@ -1,21 +1,43 @@
 <%- include('partials/header') %>
 
-    <a href="/conceptos/agregar/">Agregar Concepto</a>
-    <h2>Conceptos</h2>
-    <ul>
-        <% listaConceptos.sort((a,b)=> a.nombre.localeCompare(b.nombre)).forEach(function(concepto) { %>
-            <li data-id="<%= concepto._id %>">
-                <%= concepto.nombre %>
-                <%= concepto.tipo %>
-                <button class="btn btn-primary delConcepto"><i class="bi bi-trash"></i></button>
+    <div class="container">
+        <div class="text-center col-md-4 mx-auto my-4">
+            <a href="/conceptos/agregar/" class="btn btn-primary botones mt-5">Agregar Concepto</a>
+            <h2 class="display-4 mt-10">Conceptos</h2>
+        </div>
 
-            </li>
-            <% }); %>
-    </ul>
-    <% if (listaConceptos.length===0) {%>
-        <h4>Aún no hay conceptos agregados</h4>
-        <% }; %>
+        <div class="d-flex justify-content-center">
+            <div class="custom-width">
+                <ul class="list-group">
+                    <% listaConceptos.sort((a, b)=> a.nombre.localeCompare(b.nombre)).forEach(function(concepto) { %>
+                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                            data-id="<%= concepto._id %>">
+                            <div>
+                                <span class="badge <%= concepto.tipo === 'gasto' ? 'gasto' : 'ingreso' %>">
+                                    <%= concepto.tipo %>
+                                </span>
+                                <span class="concepto-nombre">
+                                    <%= concepto.nombre %>
+                                </span>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary rounded-circle p-2 lh-1 delConcepto">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </li>
+                        <% }); %>
+                </ul>
+            </div>
+        </div>
 
-            <a href="/">Volver</a>
+        <% if (listaConceptos.length===0) { %>
+            <h4 class="text-center mt-4">Aún no hay conceptos agregados</h4>
+            <% } %>
 
-            <%- include('partials/footer') %>
+                <div class="d-grid gap-2 mt-10">
+                    <a class="mt-2 btn btn-secondary btn-lg mx-auto" href="/">Volver</a>
+                </div>
+    </div>
+
+    <%- include('partials/footer') %>

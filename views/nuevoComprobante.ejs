@@ -1,46 +1,63 @@
 <%- include('partials/header') %>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <h1 class="my-4 text-center">Nuevo comprobante</h1>
 
-    <h1>Comprobante</h1>
+                <div class="container">
+                    <form action="/comprobantes/agregar" method="post">
+                        <div class="mb-3">
+                            <label for="cuenta" class="form-label">Cuenta:</label>
+                            <select name="cuenta" id="cuenta" class="form-select" required>
+                                <% listaCuentas.forEach(function(cuenta) { %>
+                                    <option value="<%= cuenta._id %>">
+                                        <%= cuenta.nombre %>
+                                    </option>
+                                    <% }); %>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha" class="form-label">Fecha:</label>
+                            <input type="date" name="fecha" id="fecha" class="form-control"
+                                value="<%= new Date().toISOString().slice(0, 10) %>" required>
+                            <br>
+                            <select name="tipo" id="tipo" class="form-select" required>
+                                <option value="" disabled selected>Gasto / Ingreso</option>
+                                <option value="gasto">Gasto</option>
+                                <option value="ingreso">Ingreso</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="concepto" class="form-label">Concepto:</label>
+                            <select name="concepto" id="concepto" class="form-select" required>
+                                <% listaConceptos.forEach(function(concepto) { if (!tipo && concepto.tipo===tipo) { %>
+                                    <option value="<%= concepto._id %>">
+                                        <%= concepto.nombre %>
+                                    </option>
+                                    <% } }); %>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="detalle" class="form-label">Detalle:</label>
+                            <input type="text" name="detalle" id="detalle" class="form-control" required>
+                            <br>
+                            <label for="monto" class="form-label">Monto:</label>
+                            <input type="number" name="monto" id="monto" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg mx-auto">Crear Comprobante</button>
+                            <a class="mt-2 btn btn-secondary btn-lg mx-auto" href="/comprobantes">Volver</a>
+                        </div>
+                    </form>
+                </div>
 
-    <form action="/comprobantes/agregar" method="post">
-        <label for="cuenta">Cuenta:</label>
-        
-        <select name="cuenta" id="cuenta" required>
-            <% listaCuentas.forEach(function(cuenta) { %>
-                <option value="<%= cuenta._id %>">
-                    <%= cuenta.nombre %>
-                </option>
-                <% }); %>
-        </select>
-        <br>
-        <label for="fecha">Fecha:</label>
-        <input type="date" name="fecha" id="fecha" value="<%= new Date().toISOString().slice(0, 10) %>" required>
-        <br>
-        <select name="tipo" id="tipo" required>
-                <option value="" disabled selected>Gasto / Ingreso</option>
-                <option value="gasto"> Gasto </option>
-                <option value="ingreso"> Ingreso </option>
-        </select>
-        <br>
-        <label for="concepto">Concepto:</label>
-        <select name="concepto" id="concepto" required>
-            <% listaConceptos.forEach(function(concepto) { if (!tipo && concepto.tipo === tipo) { %>
-                <option value="<%= concepto._id %>">
-                    <%= concepto.nombre %>
-                </option>
-                <% } }); %>
-        </select>
-        <br>
-        <label for="detalle">Detalle:</label>
-        <input type="text" name="detalle" id="detalle" required>
-        <br>
-        <label for="monto">Monto:</label>
-        <input type="number" name="monto" id="monto" required>
-        <br>
-        <button type="submit">Crear Comprobante</button>
-    </form>
 
-    <a href="/comprobantes">Volver</a>
+
+            </div>
+        </div>
+    </div>
+
     <script>
         const listaConceptos = JSON.parse('<%- JSON.stringify(listaConceptos) %>');
         const tipoSelect = document.getElementById("tipo");
@@ -60,4 +77,4 @@
         });
     </script>
 
-<% // partials/footer.ejs %>
+    <%- include('partials/footer') %>

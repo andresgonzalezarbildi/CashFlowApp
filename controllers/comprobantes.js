@@ -55,6 +55,7 @@ module.exports = {
   createComprobante: async (req, res) => {
     const cuentaComprobante = await Cuenta.find({ id: req.body.cuenta });
     const detalle = req.body.detalle.trim();
+    console.log(req.body.cuenta)
     // convierte en gasto o ingreso el monto dado
     let posONeg = req.body.monto;
     if (req.body.tipo === "gasto") {
@@ -106,7 +107,7 @@ module.exports = {
       } else {
         await Comprobante.create(data);
         await Cuenta.findOneAndUpdate(
-          { id: req.body.cuentaComprobante },
+          { _id: req.body.cuenta },
           {
             $inc: { saldo: posONeg },
           }

@@ -70,4 +70,27 @@
         </div>
     </div>
 
+<script>
+    function borrarCuenta(cuentaId) {
+        fetch('/cuentas/borrarCuenta', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cuentaId })
+        })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    throw new Error('Something went wrong');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+</script>
+
+
     <%- include('partials/footer') %>   
