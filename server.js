@@ -19,8 +19,7 @@ require("dotenv").config({ path: "./config/.env" });
 
 // Passport config
 require("./config/passport")(passport);
-// conectar a mongodb
-connectDB();
+
   // usar ejs como nuestro view engine
 app.set("view engine", "ejs");
 // express nos permite ustar la carpeta public como acceso a nuestros archivos, como css, js ...
@@ -66,3 +65,5 @@ app.listen(process.env.PORT, () => {
     `Server is running on port ${process.env.PORT}, you better catch it!`
   );
 });
+// conectar a mongodb
+connectDB();
