@@ -9,7 +9,7 @@ This is a project in which you can improve many of the ways in which I worked in
 
 ## How It's Made:
 
-**Tech used:** HTML, CSS, JavaScript, Express, Node, Ejs, MongoDb, Bootstrap.
+**Tech used:** HTML, CSS, JavaScript, Express, Node, Ejs, MongoDb, Bootstrap and Cyclic.
 
 This is a Full-stack, responsive web app, made with MongoDb, Express, Ejs and Node, with BootStrap to improve on the looks and speed of the css. Taylor fit to my needs and the needs of the work i needed to do.
 
