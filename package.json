@@ -1,12 +1,12 @@
 {
-  "name": "todo-mvc-auth-local",
+  "name": "cashflow_app",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "mkdir -p ./config && cp ./secrets/database.js ./config/database && npm run start",
+    "build": "mkdir config && copy secrets\\database.js config\\database.js && npm run start",
     "start": "node server.js"
   },
   "author": "",

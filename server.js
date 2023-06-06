@@ -7,7 +7,7 @@ const methodOverride = require("method-override")
 const MongoStore = require("connect-mongo")(session);
 const flash = require("express-flash");
 const logger = require("morgan");
-const connectDB = require("./secrets/database");
+const connectDB = require("./config/database");
 const mainRoutes = require("./routes/main");
 const comprobantesRoutes = require("./routes/comprobantes");
 const conceptosRoutes = require("./routes/conceptos");
@@ -18,7 +18,7 @@ const cuentasRoutes = require("./routes/cuentas");
 require("dotenv").config({ path: "./config/.env" });
 
 // Passport config
-require("./secrets/passport")(passport);
+require("./config/passport")(passport);
 // conectar a mongodb
 connectDB();
   // usar ejs como nuestro view engine
