@@ -59,9 +59,9 @@ app.use((req, res, next) => {
 
 // conectar a mongodb
 connectDB().then(() => {
-  app.listen(process.env.PORT, () => {
+  app.listen(PORT, () => {
     console.log(
-      `Server is running on port ${process.env.PORT}, you better catch it!`
+      `Server is running on port ${PORT}, you better catch it!`
     );
   });
 });
