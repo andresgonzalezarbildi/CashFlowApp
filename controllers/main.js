@@ -1,4 +1,4 @@
-const Cuenta = require('../models/cuenta' || '/models/Cuenta.js')
+const Cuenta = require('../models/cuenta')
 
 module.exports = {
   getMain: async (req, res) => {

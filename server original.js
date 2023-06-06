@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
-const methodOverride = require("method-override");
+const methodOverride = require("method-override")
 const MongoStore = require("connect-mongo")(session);
 const flash = require("express-flash");
 const logger = require("morgan");
@@ -11,7 +12,7 @@ const comprobantesRoutes = require("./routes/comprobantes");
 const conceptosRoutes = require("./routes/conceptos");
 const cuentasRoutes = require("./routes/cuentas");
 const connectDB = require("./config/database");
-const mongoose = require("mongoose");
+
 
 // usar .env
 require("dotenv").config({ path: "./config/.env" });
@@ -19,7 +20,7 @@ require("dotenv").config({ path: "./config/.env" });
 // Passport config
 require("./config/passport")(passport);
 
-// usar ejs como nuestro view engine
+  // usar ejs como nuestro view engine
 app.set("view engine", "ejs");
 // express nos permite ustar la carpeta public como acceso a nuestros archivos, como css, js ...
 app.use(express.static("public"));
@@ -38,6 +39,7 @@ app.use(
   })
 );
 
+
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -54,14 +56,14 @@ app.use("/conceptos", conceptosRoutes);
 app.use((req, res, next) => {
   res.status(404);
   // respond with the custom 404 page
-  res.render("404.ejs");
-});
+  res.render("404.ejs")
+})
 
-// conectar a mongodb
-connectDB().then(() => {
-  app.listen(process.env.PORT, () => {
-    console.log(
-      `Server is running on port ${process.env.PORT}, you better catch it!`
-    );
-  });
+// seleccionar puerto 
+app.listen(process.env.PORT, () => {
+  console.log(
+    `Server is running on port ${process.env.PORT}, you better catch it!`
+  );
 });
+// conectar a mongodb
+connectDB();
