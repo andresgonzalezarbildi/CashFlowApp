@@ -1,6 +1,6 @@
-const Comprobante = require("../models/comprobante");
+const Comprobante = require("../models/Comprobante");
 const Cuenta = require("../models/Cuenta");
-const Concepto = require("../models/concepto");
+const Concepto = require("../models/Concepto");
 
 module.exports = {
   getComprobantes: async (req, res) => {

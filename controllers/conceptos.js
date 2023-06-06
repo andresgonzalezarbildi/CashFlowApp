@@ -1,4 +1,4 @@
-const Concepto = require("../models/concepto");
+const Concepto = require("../models/Concepto");
 
 module.exports = {
   getConceptos: async (req, res) => {
