@@ -12,6 +12,7 @@ const conceptosRoutes = require("./routes/conceptos");
 const cuentasRoutes = require("./routes/cuentas");
 const connectDB = require("./secrets/database");
 const mongoose = require("mongoose");
+const port = process.env.PORT || 3000
 
 // usar .env
 require("dotenv").config({ path: "./config/.env" });
@@ -59,9 +60,9 @@ app.use((req, res, next) => {
 
 // conectar a mongodb
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  app.listen(port, () => {
     console.log(
-      `Server is running on port ${PORT}, you better catch it!`
+      `Server is running on port ${port}, you better catch it!`
     );
   });
 });
