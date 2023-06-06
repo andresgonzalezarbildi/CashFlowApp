@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cp /etc/secrets/database.js ./config/database && npm run start"
+    "build": "mkdir -p ./config && cp /etc/secrets/database.js ./config/database && npm run start",
+    "description": "build crea una carpeta vacia, llamada config, para que render pueda cargar los secrets, sin subirlos a github"
 
 
   },
