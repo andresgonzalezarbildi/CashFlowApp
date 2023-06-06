@@ -10,14 +10,14 @@ const mainRoutes = require("./routes/main");
 const comprobantesRoutes = require("./routes/comprobantes");
 const conceptosRoutes = require("./routes/conceptos");
 const cuentasRoutes = require("./routes/cuentas");
-const connectDB = require("./config/database");
+const connectDB = require("./secrets/database");
 const mongoose = require("mongoose");
 
 // usar .env
 require("dotenv").config({ path: "./config/.env" });
 
 // Passport config
-require("./config/passport")(passport);
+require("./secrets/passport")(passport);
 
 // usar ejs como nuestro view engine
 app.set("view engine", "ejs");
