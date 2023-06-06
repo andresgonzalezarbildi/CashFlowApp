@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "mkdir -p ./config && cp /etc/secrets/database.js ./config/database && npm run start",
     "start": "node server.js"
   },
   "author": "",
