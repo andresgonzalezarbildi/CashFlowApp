@@ -1,4 +1,4 @@
-const Cuenta = require("../models/cuenta");
+const Cuenta = require("../models/Cuenta");
 const { ObjectId } = require("mongoose").Types;
 
 module.exports = {
